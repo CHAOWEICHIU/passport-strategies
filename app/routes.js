@@ -2,6 +2,7 @@
 module.exports = (app, passport)=>{
 
     app.get('/', (req, res)=>{
+        console.log(req.session)
         res.render('index')
     })
 
@@ -9,8 +10,11 @@ module.exports = (app, passport)=>{
         res.render('login', { message: req.flash('loginMessage') })
     })
 
-    // process the login form
-    // app.post('/login', do all our passport stuff here);
+    app.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/login', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
 
     
     app.get('/signup', (req, res)=>{
@@ -18,11 +22,21 @@ module.exports = (app, passport)=>{
     })
 
     // process the signup form
-    // app.post('/signup', do all our passport stuff here);
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
+
+
+
 
     
     
     app.get('/profile', isLoggedIn, (req, res)=>{
+        
+        
+        
         res.render('profile', {
             user : req.user // get the user out of session and pass to template
         });
