@@ -28,6 +28,14 @@ module.exports = (app, passport)=>{
         failureFlash : true // allow flash messages
     }));
 
+    app.get('/auth/google', passport.authenticate('google'));
+
+    // the callback after google has authenticated the user
+    app.get('/auth/google/callback',
+            passport.authenticate('google', {
+                    successRedirect : '/profile',
+                    failureRedirect : '/'
+            }));
 
 
     app.get('/auth/facebook', passport.authenticate('facebook'));
@@ -39,8 +47,6 @@ module.exports = (app, passport)=>{
         }));
     
     app.get('/profile', isLoggedIn, (req, res)=>{
-        
-        
         
         res.render('profile', {
             user : req.user // get the user out of session and pass to template

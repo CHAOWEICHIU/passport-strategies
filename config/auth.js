@@ -6,16 +6,11 @@ module.exports = {
         'scope'         : ['id', 'displayName', 'photos', 'email']
     },
 
-    'twitterAuth' : {
-        'consumerKey'       : 'your-consumer-key-here',
-        'consumerSecret'    : 'your-client-secret-here',
-        'callbackURL'       : 'http://localhost:3000/auth/twitter/callback'
-    },
-
     'googleAuth' : {
-        'clientID'      : 'your-secret-clientID-here',
-        'clientSecret'  : 'your-client-secret-here',
-        'callbackURL'   : 'http://localhost:3000/auth/google/callback'
+        'clientID'      : '672850834509-u9cg82fucbd1ifbiubifsga94us87iv4.apps.googleusercontent.com',
+        'clientSecret'  : '-Pv3HRFMIbbnSWIwurO1CLuC',
+        'callbackURL'   : 'http://localhost:3000/auth/google/callback',
+        'scope'         : ['profile', 'email']
     }
 
 };
