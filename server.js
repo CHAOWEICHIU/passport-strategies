@@ -8,6 +8,7 @@ const express 	= require('express')
 	, session 	= require('express-session')
 	, passport  = require('passport')
 	, morgan 	= require('morgan')
+	, cors		= require('cors')
 	, configDB	= require('./config/database');
 
 // configuration ===============================================================
@@ -15,7 +16,7 @@ mongoose.connect(configDB.url,(err)=>console.log('connect to DB'));
 require('./config/passport')(passport); // pass passport for configuration
 
 
-app.use(morgan('dev')) // log every request to console
+// app.use(morgan('dev')) // log every request to console
 app.use(bodyParser.urlencoded({ extended: true })) // get info from HTML form
 app.use(cookieParser()) // read cookies (for auth)
 
@@ -26,7 +27,7 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true 
 })); // session secret
-
+app.use(cors())
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
